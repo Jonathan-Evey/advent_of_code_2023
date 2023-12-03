@@ -31,11 +31,34 @@ const partOne = (array) => {
     });
     eachGameArray.push(highestGemsShown);
   });
-  console.log(eachGameArray);
+  //console.log(eachGameArray);
   calculateGames(eachGameArray);
 };
 
-const partTwo = (array) => {};
+const partTwo = (array) => {
+  let eachGameArray = [];
+  array.forEach((game, index) => {
+    const highestGemsShown = {
+      game: index + 1,
+      red: 0,
+      blue: 0,
+      green: 0,
+    };
+    game.forEach((gemAmount, index) => {
+      if (index > 1) {
+        if (index % 2 === 0) {
+          let colorValue = game[index + 1].replace(/[,;]/, "");
+          if (Number(gemAmount) > highestGemsShown[colorValue]) {
+            highestGemsShown[colorValue] = Number(gemAmount);
+          }
+        }
+      }
+    });
+    eachGameArray.push(highestGemsShown);
+  });
+  console.log(eachGameArray);
+  calculateGamesTwo(eachGameArray);
+};
 
 const calculateGames = (array) => {
   const possibleGamesArray = [];
@@ -54,8 +77,15 @@ const calculateGames = (array) => {
       }
     }
   });
-  console.log(possibleGamesArray);
+  //console.log(possibleGamesArray);
   sumGames(possibleGamesArray);
+};
+const calculateGamesTwo = (array) => {
+  let total = 0;
+  array.forEach((game) => {
+    total = total + game["red"] * game["blue"] * game["green"];
+  });
+  console.log(total);
 };
 
 const sumGames = (array) => {
